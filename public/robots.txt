@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jamesfhoward.github.io/personal_website_kayla/sitemap.xml
