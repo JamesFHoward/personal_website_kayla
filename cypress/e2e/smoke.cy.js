@@ -165,9 +165,8 @@ describe('Kayla site smoke test', () => {
     const roverUrl =
       'https://www.rover.com/members/kayla-m-compassion-in-action/';
 
-    cy.get('.social-links a.social-link')
-      .should('have.attr', 'href', roverUrl)
-      .and('have.attr', 'target', '_blank')
+    cy.get(`.social-links a.social-link[href="${roverUrl}"]`)
+      .should('have.attr', 'target', '_blank')
       .and('have.attr', 'rel')
       .and('include', 'noopener');
 
@@ -175,6 +174,25 @@ describe('Kayla site smoke test', () => {
       .should('have.attr', 'target', '_blank')
       .and('have.attr', 'rel')
       .and('include', 'noopener');
+  });
+
+  it('links to the real LinkedIn profile from the left panel', () => {
+    cy.visit('/');
+    const linkedinUrl = 'https://www.linkedin.com/in/amanda-mcneill-67b669328/';
+
+    cy.get(`.social-links a.social-link[href="${linkedinUrl}"]`)
+      .should('have.attr', 'target', '_blank')
+      .and('have.attr', 'rel')
+      .and('include', 'noopener');
+  });
+
+  it('shows an icon badge for each social link in the left panel', () => {
+    cy.visit('/');
+    cy.get('.social-links a.social-link').should('have.length', 2);
+    cy.get('.social-links a.social-link svg.social-icon').should(
+      'have.length',
+      2,
+    );
   });
 
   it('requires a Meet & Greet booking before offering a returning-client booking option', () => {
