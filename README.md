@@ -15,7 +15,10 @@ Everything works and deploys, but the copy, contact info, and photo are
   JSON-LD block (name, email)
 - `src/App.svelte` — hero/about copy, service descriptions and rates, and the
   `mailto:` / `tel:` links in the Contact section
-- `public/avatar.svg` — swap for a real photo (see below)
+- `public/avatar.svg` — used only for the `og:image`/`twitter:image`/JSON-LD
+  social-share preview; swap for a real photo
+- `public/gallery/photo-1.svg` … `photo-10.svg` — the 10-tile hero collage
+  (see below)
 - `public/robots.txt`, `public/sitemap.xml`, `vite.config.js` (`base`) — only
   need changes if this ends up hosted somewhere other than
   `https://jamesfhoward.github.io/personal_website_kayla/`
@@ -44,12 +47,21 @@ Cal.com can't technically enforce "Meet & Greet first" on its own — the site
 handles that by making the Meet & Greet CTA primary/first and labeling the
 second CTA "Returning Client? Book a Visit."
 
-### Swapping in a real photo
+### Swapping in real photos
 
-`src/App.svelte` currently points the hero `<img>` at `avatar.svg`. Drop a
-real photo into `public/` (e.g. `photo.jpg`) and update the `src` attribute
-— see `personal_website/src/App.svelte` for an example of serving responsive
-`<picture>` sources if you want multiple sizes/formats.
+The left-panel hero is a 10-tile collage (`.photo-grid` in `src/App.svelte`),
+rendered from a `{#each Array(10) as _, i}` loop over
+`gallery/photo-1.svg` … `photo-10.svg`. To swap in real photos:
+
+1. Drop real images into `public/gallery/`, named to match (e.g.
+   `photo-1.jpg`), and update the `src` in the `{#each}` loop — or replace
+   the loop with 10 explicit `<img>` tags if the photos need different alt
+   text (e.g. individual pets' names) rather than the shared collage label.
+2. The grid is a plain 5×2 CSS grid (`.photo-grid`/`.photo-tile` in the
+   `<style>` block) — adjust `grid-template-columns`/`grid-template-rows`
+   if you want a different tile count or mosaic shape.
+3. Also update `public/avatar.svg`, which is used separately for the
+   `og:image`/social-share preview (a single image, not the collage).
 
 ## Project Structure
 

@@ -113,11 +113,19 @@ describe('Kayla site smoke test', () => {
     });
   });
 
-  it('serves the hero photo as a loaded, responsive image', () => {
+  it('serves a 10-photo hero collage, labeled as a group for screen readers', () => {
     cy.visit('/');
-    cy.get('img.profile-photo').should('have.attr', 'alt').and('not.be.empty');
-    cy.get('img.profile-photo').should(($img) => {
-      expect($img[0].naturalWidth).to.be.greaterThan(0);
+    cy.get('.photo-grid').should('have.attr', 'role', 'img');
+    cy.get('.photo-grid').should('have.attr', 'aria-label').and('not.be.empty');
+
+    cy.get('img.photo-tile').should('have.length', 10);
+    cy.get('img.photo-tile').each(($img, i) => {
+      cy.wrap($img)
+        .should('have.attr', 'src')
+        .and('include', `gallery/photo-${i + 1}.svg`);
+      cy.wrap($img).should(($el) => {
+        expect($el[0].naturalWidth).to.be.greaterThan(0);
+      });
     });
   });
 

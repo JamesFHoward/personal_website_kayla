@@ -75,13 +75,22 @@
 <div class="layout">
   <!-- ── LEFT PANEL ─────────────────────────── -->
   <aside class="left-panel">
-    <img
-      src="{import.meta.env.BASE_URL}avatar.svg"
-      alt="Kayla"
-      class="profile-photo"
-      width="1200"
-      height="1600"
-    />
+    <div
+      class="photo-grid"
+      role="img"
+      aria-label="Collage of Kayla and the pets she's cared for — placeholder photos, to be replaced with real ones"
+    >
+      {#each Array.from({ length: 10 }, (_, i) => i + 1) as n (n)}
+        <img
+          src="{import.meta.env.BASE_URL}gallery/photo-{n}.svg"
+          alt=""
+          class="photo-tile"
+          width="400"
+          height="400"
+          loading="lazy"
+        />
+      {/each}
+    </div>
     <div class="left-overlay"></div>
     <div class="left-content">
       <p class="left-eyebrow">Compassion in Action</p>
@@ -396,13 +405,20 @@
     overflow: hidden;
   }
 
-  .profile-photo {
+  .photo-grid {
     position: absolute;
     inset: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .photo-tile {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 30%;
+    display: block;
   }
 
   .left-overlay {
