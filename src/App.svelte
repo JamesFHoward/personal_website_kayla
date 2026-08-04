@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
 
   let activeSection = 'home';
-  const sections = ['home', 'about', 'services', 'contact'];
+  const sections = ['home', 'about', 'services', 'booking', 'contact'];
 
   const scrollToSection = (sectionId) => {
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -61,6 +61,11 @@
     on:click={() => scrollToSection('services')}>Services</button
   >
   <button
+    class="mobile-nav-btn {activeSection === 'booking' ? 'active' : ''}"
+    aria-current={activeSection === 'booking' ? 'true' : undefined}
+    on:click={() => scrollToSection('booking')}>Booking</button
+  >
+  <button
     class="mobile-nav-btn {activeSection === 'contact' ? 'active' : ''}"
     aria-current={activeSection === 'contact' ? 'true' : undefined}
     on:click={() => scrollToSection('contact')}>Contact</button
@@ -79,9 +84,11 @@
     />
     <div class="left-overlay"></div>
     <div class="left-content">
-      <p class="left-eyebrow">Personal &amp; Pet Care</p>
+      <p class="left-eyebrow">Compassion in Action</p>
       <h1 class="left-name">Kayla</h1>
-      <p class="left-subtitle">Pet Sitter, Dog Walker &amp; House Sitter</p>
+      <p class="left-subtitle">
+        Pet Sitter, Dog Walker &amp; House Sitter · Bon Air, VA
+      </p>
 
       <nav class="left-nav" aria-label="Primary">
         <button
@@ -100,11 +107,25 @@
           on:click={() => scrollToSection('services')}>Services</button
         >
         <button
+          class="nav-btn {activeSection === 'booking' ? 'active' : ''}"
+          aria-current={activeSection === 'booking' ? 'true' : undefined}
+          on:click={() => scrollToSection('booking')}>Booking</button
+        >
+        <button
           class="nav-btn {activeSection === 'contact' ? 'active' : ''}"
           aria-current={activeSection === 'contact' ? 'true' : undefined}
           on:click={() => scrollToSection('contact')}>Contact</button
         >
       </nav>
+
+      <div class="social-links">
+        <a
+          class="social-link"
+          href="https://www.rover.com/members/kayla-m-compassion-in-action/"
+          target="_blank"
+          rel="noopener">↗ Rover Profile</a
+        >
+      </div>
     </div>
   </aside>
 
@@ -156,8 +177,13 @@
       <p class="section-label">Pet Care &amp; House Sitting</p>
       <h2>Services</h2>
       <p>
-        Serving [Your City, State] and surrounding areas. Every visit is
-        tailored to your pet's routine — reach out for a personalized quote.
+        Serving Bon Air, VA and surrounding areas. Every visit is tailored to
+        your pet's routine — reach out for a personalized quote. Also
+        <a
+          href="https://www.rover.com/members/kayla-m-compassion-in-action/"
+          target="_blank"
+          rel="noopener">bookable and verified on Rover ↗</a
+        >.
       </p>
 
       <div class="exp-list">
@@ -193,6 +219,51 @@
             — a great fit for cats or any pet that doesn't need a full house
             sitter. [Add rate or "Contact for a quote".]
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking" class="section">
+      <p class="section-label">Schedule A Visit</p>
+      <h2>Booking</h2>
+      <p>
+        Every new client starts with a free, no-obligation Meet &amp; Greet — a
+        chance for me to meet your pet(s), walk through your home and routine,
+        and make sure it's a good fit before any paid visit is scheduled.
+        Returning clients can book directly.
+      </p>
+
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-header">
+            <h3>New Client? Start Here</h3>
+          </div>
+          <p>
+            Book a free 15-minute Meet &amp; Greet — required before your first
+            paid visit or house sitting stay.
+          </p>
+          <a
+            class="button primary booking-cta"
+            href="https://cal.com/PLACEHOLDER-replace-with-kaylas-username/meet-and-greet"
+            target="_blank"
+            rel="noopener">Book a Meet &amp; Greet ↗</a
+          >
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <h3>Returning Client? Book a Visit</h3>
+          </div>
+          <p>
+            Already had a Meet &amp; Greet? See my live availability and book
+            your next visit directly.
+          </p>
+          <a
+            class="button secondary booking-cta"
+            href="https://cal.com/PLACEHOLDER-replace-with-kaylas-username/pet-care-visit"
+            target="_blank"
+            rel="noopener">View Availability ↗</a
+          >
         </div>
       </div>
     </section>
@@ -268,6 +339,8 @@
 
   .nav-btn:focus-visible,
   .mobile-nav-btn:focus-visible,
+  .social-link:focus-visible,
+  .section p a:focus-visible,
   .button:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -352,6 +425,37 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    margin-bottom: 22px;
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(245, 237, 225, 0.6);
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+
+  .social-link:hover {
+    background: var(--accent-dim);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: var(--accent);
   }
 
   .nav-btn {
@@ -426,6 +530,16 @@
 
   .section p:last-child {
     margin-bottom: 0;
+  }
+
+  .section p a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .section p a:hover {
+    color: var(--accent-2);
   }
 
   /* skill tags */
@@ -506,6 +620,12 @@
     line-height: 1.78;
     font-size: 0.86rem;
     color: var(--text-muted);
+  }
+
+  .booking-cta {
+    margin-top: 16px;
+    padding: 10px 22px;
+    font-size: 0.82rem;
   }
 
   /* contact */

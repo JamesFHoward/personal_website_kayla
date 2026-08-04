@@ -106,7 +106,7 @@ describe('Kayla site smoke test', () => {
       expect(parseFloat(cs.outlineWidth)).to.be.greaterThan(0);
     });
 
-    cy.get('a.button.primary').focus();
+    cy.get('.contact-links a.button.primary').focus();
     cy.focused().should(($el) => {
       const cs = getComputedStyle($el[0]);
       expect(cs.outlineStyle).to.eq('solid');
@@ -124,7 +124,7 @@ describe('Kayla site smoke test', () => {
   it('moves the active nav state as each section is clicked', () => {
     cy.visit('/');
 
-    const sections = ['Home', 'About', 'Services', 'Contact'];
+    const sections = ['Home', 'About', 'Services', 'Booking', 'Contact'];
     sections.forEach((label) => {
       cy.get('nav.left-nav .nav-btn').contains(label).click();
       cy.wait(700);
@@ -160,12 +160,47 @@ describe('Kayla site smoke test', () => {
     cy.get('.contact-links a[href^="tel:"]').should('have.length', 1);
   });
 
+  it('links to the real Rover profile from the left panel and services section', () => {
+    cy.visit('/');
+    const roverUrl =
+      'https://www.rover.com/members/kayla-m-compassion-in-action/';
+
+    cy.get('.social-links a.social-link')
+      .should('have.attr', 'href', roverUrl)
+      .and('have.attr', 'target', '_blank')
+      .and('have.attr', 'rel')
+      .and('include', 'noopener');
+
+    cy.get('#services a[href="' + roverUrl + '"]')
+      .should('have.attr', 'target', '_blank')
+      .and('have.attr', 'rel')
+      .and('include', 'noopener');
+  });
+
+  it('requires a Meet & Greet booking before offering a returning-client booking option', () => {
+    cy.visit('/');
+    cy.get('#booking .exp-item').should('have.length', 2);
+    cy.get('#booking .exp-header h3')
+      .eq(0)
+      .should('contain.text', 'New Client');
+    cy.get('#booking .exp-header h3')
+      .eq(1)
+      .should('contain.text', 'Returning Client');
+
+    cy.get('#booking a.booking-cta').should('have.length', 2);
+    cy.get('#booking a.booking-cta').each(($a) => {
+      cy.wrap($a).should('have.attr', 'href').and('include', 'cal.com');
+      cy.wrap($a).should('have.attr', 'target', '_blank');
+      cy.wrap($a).should('have.attr', 'rel').and('include', 'noopener');
+    });
+  });
+
   it('shows the mobile nav bar and tracks section state on small viewports', () => {
     cy.viewport('iphone-x');
     cy.visit('/');
     cy.get('.mobile-nav').should('be.visible');
 
-    ['Home', 'About', 'Services', 'Contact'].forEach((label) => {
+    ['Home', 'About', 'Services', 'Booking', 'Contact'].forEach((label) => {
       cy.get('.mobile-nav .mobile-nav-btn').contains(label).click();
       cy.wait(700);
       cy.get('.mobile-nav .mobile-nav-btn.active')
