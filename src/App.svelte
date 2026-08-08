@@ -329,16 +329,16 @@
 
 <style>
   :global(:root) {
-    --bg: #1a1410;
-    --text: #f5ede1;
-    --text-muted: rgba(245, 237, 225, 0.62);
-    --accent: #f59e0b;
-    --accent-dim: rgba(245, 158, 11, 0.14);
-    --accent-glow: rgba(245, 158, 11, 0.28);
-    --accent-2: #fb923c;
-    --border: rgba(245, 237, 225, 0.1);
-    --item-bg: rgba(255, 255, 255, 0.03);
-    --item-border-hover: rgba(245, 158, 11, 0.25);
+    --bg: #fdf1f6;
+    --text: #3d1f2b;
+    --text-muted: rgba(61, 31, 43, 0.62);
+    --accent: #c2255c;
+    --accent-dim: rgba(194, 37, 92, 0.12);
+    --accent-glow: rgba(194, 37, 92, 0.32);
+    --accent-2: #9d1750;
+    --border: rgba(61, 31, 43, 0.12);
+    --item-bg: rgba(194, 37, 92, 0.05);
+    --item-border-hover: rgba(194, 37, 92, 0.32);
   }
 
   :global(body) {
@@ -364,7 +364,7 @@
     left: 8px;
     z-index: 1000;
     background: var(--accent);
-    color: #1a1410;
+    color: #fff;
     font-weight: 600;
     font-size: 0.85rem;
     padding: 10px 18px;
@@ -426,10 +426,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(26, 20, 16, 0.05) 0%,
-      rgba(26, 20, 16, 0.25) 40%,
-      rgba(26, 20, 16, 0.85) 68%,
-      rgba(26, 20, 16, 0.97) 100%
+      rgba(157, 23, 80, 0.05) 0%,
+      rgba(157, 23, 80, 0.25) 40%,
+      rgba(157, 23, 80, 0.85) 68%,
+      rgba(157, 23, 80, 0.97) 100%
     );
   }
 
@@ -500,7 +500,7 @@
 
   .social-link:hover {
     background: var(--accent-dim);
-    border-color: rgba(245, 158, 11, 0.3);
+    border-color: rgba(194, 37, 92, 0.3);
     color: var(--accent);
   }
 
@@ -570,7 +570,7 @@
     font-size: 1.7rem;
     font-weight: 700;
     letter-spacing: -0.04em;
-    color: #fff;
+    color: var(--text);
   }
 
   .section p {
@@ -664,7 +664,7 @@
     margin: 0;
     font-size: 0.94rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
   }
 
   .exp-item p {
@@ -710,13 +710,13 @@
 
   .button.primary {
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #1a1410;
+    color: #fff;
     box-shadow: 0 6px 28px var(--accent-glow);
   }
 
   .button.secondary {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--item-bg);
+    border: 1px solid var(--border);
     color: var(--text);
   }
 
@@ -754,7 +754,7 @@
       right: 0;
       z-index: 100;
       height: 52px;
-      background: rgba(26, 20, 16, 0.96);
+      background: rgba(157, 23, 80, 0.96);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
